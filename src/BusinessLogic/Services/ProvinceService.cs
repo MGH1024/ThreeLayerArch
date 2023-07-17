@@ -1,0 +1,22 @@
+﻿using Repositories;
+using Core.Entities;
+using Core.DTOs;
+
+namespace Services
+{
+    public class ProvinceService
+    {
+        private readonly ProvinceRepository _provinceRepository;
+        public ProvinceService()
+        {
+            _provinceRepository = new ProvinceRepository();
+        }
+
+        public void CreateProvince(ProvinceDto provinceDto)
+        {
+            var province = new Province();
+            province.Name = provinceDto.Name;
+            _provinceRepository.CreateProvince(province);
+        }
+    }
+}
