@@ -126,6 +126,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Pages\Province\CreateProvince.aspx" />
+    <Content Include="Pages\Province\ProvinceList.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -193,6 +194,13 @@
     </Compile>
     <Compile Include="Pages\Province\CreateProvince.aspx.designer.cs">
       <DependentUpon>CreateProvince.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Province\ProvinceList.aspx.cs">
+      <DependentUpon>ProvinceList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Province\ProvinceList.aspx.designer.cs">
+      <DependentUpon>ProvinceList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
