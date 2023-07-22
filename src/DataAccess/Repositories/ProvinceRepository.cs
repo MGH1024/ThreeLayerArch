@@ -1,27 +1,20 @@
 ﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Data.OleDb;
 using System.Data.SqlClient;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.DTOs;
 
 namespace Repositories
 {
-    public class ProvinceRepository
+    public class ProvinceRepository : BaseRepository
     {
-        private string conn = ConfigurationManager.ConnectionStrings["SqlConnection"].ToString();
-
 
         public void CreateProvince(Province province)
         {
 
             var query = "insert into dbo.Province (Name) Values (@Name)";
 
-            using (SqlConnection connection = new SqlConnection(conn))
+            using (var connection = new SqlConnection(sqlConnection))
             {
 
                 SqlCommand command = new SqlCommand(query, connection);
@@ -44,7 +37,7 @@ namespace Repositories
         {
             var query = "SELECT  Id,Name FROM dbo.Province";
             var provinces = new List<Province>();
-            using (SqlConnection connection = new SqlConnection(conn))
+            using (var connection = new SqlConnection(sqlConnection))
             {
 
                 try
@@ -73,6 +66,41 @@ namespace Repositories
                 }
             }
             return provinces;
+        }
+
+
+        public List<Province> GetAllProvince()
+        {
+            var states = new List<Province>();
+            var querystr = "select Id,Name from province";
+
+            using (var connection = new OleDbConnection(accessConnection))
+            {
+                OleDbCommand command = new OleDbCommand(querystr, connection);
+                try
+                {
+                    connection.Open();
+                    OleDbDataReader reader = command.ExecuteReader();
+                    while (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var province = new Province();
+                            province.Id = (int)reader["Id"];
+                            province.Name = (string)reader["Name"];
+                            states.Add(province);
+                        }
+
+                        reader.NextResult();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return states;
         }
     }
 }
